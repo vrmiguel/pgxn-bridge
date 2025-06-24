@@ -36,9 +36,8 @@ pub struct Release {
 
 impl Release {
     fn download_url(&self) -> String {
-        // Assumes the following spec: "/dist/{dist}/{version}/{dist}-{version}.zip"
-        // TODO(vini): use the correct URL template from pgxn here
-
+        // PGXN URL template format: "https://master.pgxn.org/dist/{dist}/{version}/{dist}-{version}.zip"
+        
         let Self { dist, version, .. } = &self;
 
         let dist = dist.to_lowercase();
