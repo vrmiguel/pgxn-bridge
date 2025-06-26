@@ -36,24 +36,22 @@ pub struct Release {
 
 impl Release {
     fn download_url(&self) -> String {
-        // Assumes the following spec: "/dist/{dist}/{version}/{dist}-{version}.zip"
-        // TODO(vini): use the correct URL template from pgxn here
-
+        // Uses the official PGXN URL format: "/dist/{dist}/{version}/{dist}-{version}.zip"
         let Self { dist, version, .. } = &self;
 
         let dist = dist.to_lowercase();
 
-        format!("https://master.pgxn.org/dist/{dist}/{version}/{dist}-{version}.zip")
+        format!("https://pgxn.org/dist/{dist}/{version}/{dist}-{version}.zip")
     }
 
     fn meta_url(&self) -> String {
-        // Assumes the following spec: "/dist/{dist}/{version}/META.json"
+        // Uses the official PGXN URL format: "/dist/{dist}/{version}/META.json"
 
         let Self { dist, version, .. } = &self;
 
         let dist = dist.to_lowercase();
 
-        format!("https://master.pgxn.org/dist/{dist}/{version}/META.json")
+        format!("https://pgxn.org/dist/{dist}/{version}/META.json")
     }
 
     /// Get this distribution's zip archive as bytes
@@ -124,7 +122,7 @@ impl Release {
 pub async fn get_dists() -> anyhow::Result<DistResponse> {
     info!("Getting recent entries in PGXNs");
 
-    let url = "https://master.pgxn.org/stats/dist.json";
+    let url = "https://pgxn.org/stats/dist.json";
 
     reqwest::get(url)
         .await?
